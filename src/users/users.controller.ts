@@ -5,11 +5,22 @@ import { UpdateUserDto } from './dto/update-user.dto';
 
 @Controller('users')
 export class UsersController {
-  constructor(private readonly usersService: UsersService) {}
+  constructor(private readonly usersService: UsersService) { }
 
   @Post()
-  create(@Body() createUserDto: CreateUserDto) {
-    return this.usersService.create(createUserDto);
+  create(
+    // @Body('email') email: string,
+    // @Body('password') password: string,
+    // @Body('name') name: string,
+    @Body() user: CreateUserDto
+
+  ) {
+    return this.usersService.create(user);
+    //myEmail: string
+    //equals to
+    //const myEmail = req.body.email
+    //createUserDto: CreateUserDto
+    //express req.body
   }
 
   @Get()

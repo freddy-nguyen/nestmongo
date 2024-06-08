@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { User } from './schemas/user.schema';
-import { Model } from 'mongoose';
+import mongoose, { Model } from 'mongoose';
 import { InjectModel } from '@nestjs/mongoose';
 import { genSaltSync, hashSync } from 'bcryptjs'; //if library's fault, export their functions directly
 
@@ -32,12 +32,19 @@ export class UsersService {
     return this.userModel.find().exec();
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} user`;
+  findOne(id: string) {
+    if (!mongoose.Types.ObjectId.isValid(id))
+      return 'User not found.'
+    return this.userModel.findOne({ _id: id });
+
   }
 
-  update(id: number, updateUserDto: UpdateUserDto) {
-    return `This action updates a #${id} user`;
+  async update(updateUserDto: UpdateUserDto) {
+    if (!mongoose.Types.ObjectId.isValid(updateUserDto._id))
+      return 'User not found.'
+    let user = await this.userModel.updateOne({ _id: updateUserDto._id }, { ...updateUserDto })
+    console.log('updated')
+    return user
   }
 
   remove(id: number) {

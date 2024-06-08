@@ -9,18 +9,9 @@ export class UsersController {
 
   @Post()
   create(
-    // @Body('email') email: string,
-    // @Body('password') password: string,
-    // @Body('name') name: string,
     @Body() user: CreateUserDto
-
   ) {
     return this.usersService.create(user);
-    //myEmail: string
-    //equals to
-    //const myEmail = req.body.email
-    //createUserDto: CreateUserDto
-    //express req.body
   }
 
   @Get()
@@ -30,12 +21,12 @@ export class UsersController {
 
   @Get(':id')
   findOne(@Param('id') id: string) {
-    return this.usersService.findOne(+id);
+    return this.usersService.findOne(id);
   }
 
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updateUserDto: UpdateUserDto) {
-    return this.usersService.update(+id, updateUserDto);
+  @Patch()
+  update(@Body() updateUserDto: UpdateUserDto) {
+    return this.usersService.update(updateUserDto);
   }
 
   @Delete(':id')

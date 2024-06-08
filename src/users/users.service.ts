@@ -47,7 +47,10 @@ export class UsersService {
     return user
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} user`;
+  async remove(id: string) {
+    if (!mongoose.Types.ObjectId.isValid(id))
+      return 'User not found.'
+    await this.userModel.deleteOne({ _id: id })
+    return 'Deleted successfully'
   }
 }

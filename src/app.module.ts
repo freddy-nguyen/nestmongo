@@ -20,15 +20,10 @@ import { JwtAuthGuard } from './auth/jwt-auth.guard';
     }),
     UsersModule,
     AuthModule,
-    // MongooseModule.forRoot('mongodb+srv://qacer6973:Qetuo3.3.3.@cluster0.votkycs.mongodb.net/')
   ],
   controllers: [AppController],
   providers: [
     AppService,
-    {
-      provide: APP_GUARD,
-      useClass: JwtAuthGuard,
-    },
   ],
 
 })

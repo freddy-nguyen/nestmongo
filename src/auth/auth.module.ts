@@ -15,9 +15,9 @@ import ms from 'ms';
     JwtModule.registerAsync({
       useFactory: (config: ConfigService) => {
         return {
-          secret: config.get<string>('JWT_SECRET'),
+          secret: config.get<string>('JWT_ACCESS_TOKEN'),
           signOptions: {
-            expiresIn: ms(config.get<string>('JWT_EXPIRE')),
+            expiresIn: ms(config.get<string>('JWT_ACCESS_EXPIRE')),
           },
         };
       },

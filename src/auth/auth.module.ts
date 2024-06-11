@@ -6,6 +6,7 @@ import { LocalStrategy } from 'src/auth/passport/local.strategy';
 import { JwtModule } from '@nestjs/jwt';
 import { JwtStrategy } from 'src/auth/passport/jwt.strategy';
 import { ConfigService } from '@nestjs/config';
+import ms from 'ms';
 
 @Module({
   imports: [
@@ -16,7 +17,7 @@ import { ConfigService } from '@nestjs/config';
         return {
           secret: config.get<string>('JWT_SECRET'),
           signOptions: {
-            expiresIn: config.get<string>('JWT_EXPIRE'),
+            expiresIn: ms(config.get<string>('JWT_EXPIRE')),
           },
         };
       },

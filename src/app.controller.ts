@@ -5,6 +5,7 @@ import { AuthGuard } from '@nestjs/passport';
 import { LocalAuthGuard } from './auth/local-auth.guard';
 import { AuthService } from './auth/auth.service';
 import { JwtAuthGuard } from './auth/jwt-auth.guard';
+import { Public } from './decorator/customize';
 
 @Controller()
 export class AppController {
@@ -14,15 +15,23 @@ export class AppController {
     private authService: AuthService,
   ) { }
 
-  // @UseGuards(LocalAuthGuard)
+  @UseGuards(LocalAuthGuard)
+  // @Public()
   @Post('/login')
   async login(@Request() req) {
+    console.log('>>>check aoo cntroller', req.user.email, req.user._id)
     return this.authService.login(req.user);
   }
 
   // @UseGuards(JwtAuthGuard)
+  // @Public()
   @Get('profile')
   getProfile(@Request() req) {
+    return req.user;
+  }
+
+  @Get('profile1')
+  getProfile1(@Request() req) {
     return req.user;
   }
 }

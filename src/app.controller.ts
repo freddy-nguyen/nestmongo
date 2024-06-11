@@ -15,11 +15,10 @@ export class AppController {
     private authService: AuthService,
   ) { }
 
+  @Public()
   @UseGuards(LocalAuthGuard)
-  // @Public()
   @Post('/login')
-  async login(@Request() req) {
-    console.log('>>>check aoo cntroller', req.user.email, req.user._id)
+  handleLogin(@Request() req) {
     return this.authService.login(req.user);
   }
 

@@ -2,7 +2,7 @@ import { Body, Controller, Get, Post, Render, Request, UseGuards } from '@nestjs
 // import { AppService } from 'src/app.service';
 // import { ConfigService } from '@nestjs/config';
 // import { AuthGuard } from '@nestjs/passport';
-import { LocalAuthGuard } from './auth/local-auth.guard';
+// import { LocalAuthGuard } from './auth/local-auth.guard';
 import { AuthService } from './auth/auth.service';
 // import { JwtAuthGuard } from './auth/jwt-auth.guard';
 import { Public } from './decorator/customize';
@@ -22,24 +22,5 @@ export class AppController {
   @Post('create')
   createUser(@Body() users: CreateUserDto) {
     return this.usersService.create(users)
-  }
-
-  @Public()
-  @UseGuards(LocalAuthGuard)
-  @Post('/login')
-  handleLogin(@Request() req) {
-    return this.authService.login(req.user);
-  }
-
-  // @UseGuards(JwtAuthGuard)
-  @Public()
-  @Get('profile')
-  getProfile(@Request() req) {
-    return req.user;
-  }
-
-  @Get('profile1')
-  getProfile1(@Request() req) {
-    return req.user;
   }
 }

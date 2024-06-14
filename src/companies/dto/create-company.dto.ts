@@ -1,5 +1,5 @@
 //data transfer object
-import { IsEmail, IsNotEmpty, IsStrongPassword } from "class-validator"
+import { IsNotEmpty } from "class-validator"
 export class CreateCompanyDto {
     @IsNotEmpty({ message: 'Email cannot be empty.' })
     email: string

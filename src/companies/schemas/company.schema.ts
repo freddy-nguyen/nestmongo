@@ -26,6 +26,12 @@ export class Company {
         name: string,
     }
 
+    @Prop({ type: Object })
+    deletedBy: {
+        _id: mongoose.Schema.Types.ObjectId,
+        name: string,
+    }
+
     @Prop()
     createdAt: Date;
 

@@ -38,15 +38,18 @@ export class CompaniesService {
 
   async update(id: string, user: IUser, updateCompanyDto: UpdateCompanyDto) {
     if (!mongoose.Types.ObjectId.isValid(id))
-      return 'User not found.'
-    let company = await this.companyModel.updateOne({ ...updateCompanyDto, updatedBy: { _id: id, email: user.email } })
+      return 'Company not found.'
+    let company = await this.companyModel.updateOne({ _id: id }, { ...updateCompanyDto, updatedBy: { _id: user._id, email: user.email } })
     console.log('company updated')
     return {
       ...company, updatedBy: { _id: id, email: user.email }
     }
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} company`;
+  async remove(id: string, user: IUser) {
+    if (!mongoose.Types.ObjectId.isValid(id))
+      return 'Company not found.'
+    await this.companyModel.updateOne({ _id: id }, { deletedBy: { _id: user._id, email: user.email } })
+    return await this.companyModel.softDelete({ _id: id })
   }
 }
